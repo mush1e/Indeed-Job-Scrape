@@ -12,7 +12,7 @@ class idkwhatiwannado:
             print(f"{'what would you like to do today?' : ^50}")
             print()
             print("1) Get weather updates for the day? :3")
-            print("2) Get job listings from random python website? :3")
+            print("2) Get indeed job listings? :3")
             self.inp = input()
             if self.inp == '1':
                 print('yay!')
