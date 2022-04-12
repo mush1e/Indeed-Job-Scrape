@@ -15,28 +15,22 @@ class jobFinder:
         self.descriptions = []
     
     def driver(self):
-        self.query = input("What kind of job are you looking for?")
-        self.location = input("What location are you looking to work in? ^-^")
+        self.query = input("What kind of job are you looking for?  ->  ")
+        self.location = input("What location are you looking to work in? ^-^  ->  ")
         page = requests.get(f"{self.URL+'q='+self.query+'&l='+self.location}")
         soup = BeautifulSoup(page.content, "html.parser")
-        jobs = soup.find_all("h2", class_="jobTitle jobTitle-color-purple")
-        companies = soup.find_all("span", class_="companyName")
+        jobs = soup.find_all("div", class_="job_seen_beacon")
 
         for job in jobs:
-            temp = job.findChild("span", recursive=False)
-            print(temp)
-            self.jobs.append(temp.text)
+            temp = job.find("h2", recursive=True).find("span", recursive=False)
             print(temp.text)
-
-        for company in companies:
-            temp = company.findChild("a", recursive=False)
-            try:
+            temp = job.find("span", class_="companyName", recursive=True)
+            if temp.find("a", recursive=False) == None:
                 print(temp.text)
-            except:
-                print(company.text)
-
-
-
+                continue
+            temp = temp.find("a", recursive=False)
+            print(temp.text)
+        
 
 if __name__ == '__main__':
     ob = jobFinder()
