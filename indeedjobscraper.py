@@ -20,6 +20,7 @@ class jobFinder:
         jobs = soup.find_all("div", class_="job_seen_beacon")
         for job in jobs:
             temp = job.find("h2", recursive=True).find("span", recursive=False)
+            # print(temp)
             self.jobs[0].append(temp.text)
             temp = job.find("span", class_="companyName", recursive=True)
             if temp.find("a", recursive=False) == None:
